@@ -1,17 +1,25 @@
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.constants import ParseMode
 from telegram.ext import ContextTypes
 
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def generate(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        [InlineKeyboardButton("Test 1", callback_data='test1')],
-        [InlineKeyboardButton("Test 2", callback_data='test2')],
-        [InlineKeyboardButton("Test 3", callback_data='test3')]
+        [InlineKeyboardButton("Moncler", callback_data='mc')],
+        [InlineKeyboardButton("Golden Goose", callback_data='gg')],
+        [InlineKeyboardButton("Stock x", callback_data='sx')]
     ]
 
     reply_markup = InlineKeyboardMarkup(keyboard)
 
+    message = (
+        "<b>Salut Raph !</b> 👋\n"
+        "Quel type de facture veux tu générer aujourd'hui ? \n"
+        "Choisi une des options ci-dessous :"
+    )
+
     await update.message.reply_text(
-        "Salut ! C'est Billo", 
+        text=message,
+        parse_mode=ParseMode.HTML,
         reply_markup=reply_markup
     )
 
@@ -20,9 +28,9 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     await query.answer()
     
-    if query.data == 'test1':
-        await query.edit_message_text(text="Test 1")
-    elif query.data == 'test2':
-        await query.edit_message_text(text="Test 2")
-    elif query.data == 'test3':
-        await query.edit_message_text(text="Test 3")
+    if query.data == 'mc':
+        await query.edit_message_text(text="Facture Moncler en cours de création...")
+    elif query.data == 'gg':
+        await query.edit_message_text(text="Facture Golden Goose en cours de création...")
+    elif query.data == 'sx':
+        await query.edit_message_text(text="Facture Stock x en cours de création...")

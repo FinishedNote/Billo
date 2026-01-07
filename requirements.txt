@@ -1,2 +1,4 @@
 python-telegram-bot==20.*
-dotenv
+python-dotenv
+jinja2
+xhtml2pdf
